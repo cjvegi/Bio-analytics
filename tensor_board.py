@@ -2,7 +2,7 @@
 """
 Created on Wed Jan 24 12:13:17 2018
 
-@author: Khan
+@author: Chiranjeevi Vegi
 """
 
 # -*- coding: utf-8 -*-
@@ -19,11 +19,13 @@ from sklearn.decomposition import PCA
 
 PATH = os.getcwd()
 
-LOG_DIR = PATH + '/mnist-tensorboard/log-1/'
+LOG_DIR = PATH + '/bioanalytics-tensorboard/log-1/'
 metadata = os.path.join(LOG_DIR, 'df_labels.tsv')
 
 df = pd.read_csv("scaled.csv",index_col =0)
 df = df.drop(['cluster_2','cluster_3'], axis = 1)
+
+# Generating PCA
 pca = PCA(n_components=300,
          random_state = 123,
          svd_solver = 'auto'
@@ -31,7 +33,7 @@ pca = PCA(n_components=300,
 
 df_pca = pd.DataFrame(pca.fit_transform(df))
 
-mnist = df_pca.values #sabaaa can i run the code?
+df = df_pca.values 
 
 
 #Feature Scaling
@@ -40,14 +42,7 @@ sc_X = StandardScaler()
 mnist = sc_X.fit_transform(mnist)
 '''
 #mnist = np.asarray((mnist))
-images = tf.Variable(mnist)
-#def save_metadata(file):
-'''
-with open(metadata, 'w') as metadata_file:
-    for row in range(10000):
-        c = np.nonzero(mnist.test.labels[::1])[1:][0][row]
-        metadata_file.write('{}\n'.format(c))
-'''
+images = tf.Variable(df)
 
 
 with tf.Session() as sess:
@@ -66,4 +61,4 @@ with tf.Session() as sess:
     projector.visualize_embeddings(tf.summary.FileWriter(LOG_DIR), config) 
 
 
-#  tensorboard --logdir=C:\Users\Khan\Desktop\Files\mnist-tensorboard/log-1 --port=6006
+#  tensorboard --logdir=C:\Users\vegi\Desktop\Files\bioanalytics-tensorboard/log-1 --port=6006
