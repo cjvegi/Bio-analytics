@@ -9,7 +9,6 @@ Created on Wed Jan 24 12:13:17 2018
 
 import os
 import tensorflow as tf
-from tensorflow.examples.tutorials.mnist import input_data
 from tensorflow.contrib.tensorboard.plugins import projector
 import numpy as np
 import pandas as pd
