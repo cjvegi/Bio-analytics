@@ -1,25 +1,14 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jan 24 12:13:17 2018
-
-@author: Khan
-"""
-
-# -*- coding: utf-8 -*-
-
 import os
 import tensorflow as tf
-from tensorflow.examples.tutorials.mnist import input_data
 from tensorflow.contrib.tensorboard.plugins import projector
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
 
 PATH = os.getcwd()
 
-LOG_DIR = PATH + '/mnist-tensorboard/log-1/'
+LOG_DIR = PATH + '/bio-tensorboard/log-1/'
 metadata = os.path.join(LOG_DIR, 'df_labels.tsv')
 
 df = pd.read_csv("scaled.csv",index_col =0)
@@ -31,16 +20,9 @@ pca = PCA(n_components=300,
 
 df_pca = pd.DataFrame(pca.fit_transform(df))
 
-mnist = df_pca.values 
+bio = df_pca.values 
 
-
-#Feature Scaling
-'''
-sc_X = StandardScaler()
-mnist = sc_X.fit_transform(mnist)
-'''
-#mnist = np.asarray((mnist))
-images = tf.Variable(mnist)
+bio_tf = tf.Variable(mnist)
 #def save_metadata(file):
 '''
 with open(metadata, 'w') as metadata_file:
@@ -51,10 +33,10 @@ with open(metadata, 'w') as metadata_file:
 
 
 with tf.Session() as sess:
-    saver = tf.train.Saver([images])
+    saver = tf.train.Saver([bio_tf])
 
-    sess.run(images.initializer)
-    saver.save(sess, os.path.join(LOG_DIR, 'images.ckpt'))
+    sess.run(bio_tf.initializer)
+    saver.save(sess, os.path.join(LOG_DIR, 'bio_tf.ckpt'))
 
     config = projector.ProjectorConfig()
     # One can add multiple embeddings.
