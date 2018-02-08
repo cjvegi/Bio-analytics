@@ -26,14 +26,13 @@ def images_to_sprite(data):
     data = (data.transpose(1,2,3,0) - min).transpose(3,0,1,2)
     max = np.max(data.reshape((data.shape[0], -1)), axis=1)
     data = (data.transpose(1,2,3,0) / max).transpose(3,0,1,2)
-    # Inverting the colors seems to look better for MNIST
-    #data = 1 - data
 
     n = int(np.ceil(np.sqrt(data.shape[0])))
     padding = ((0, n ** 2 - data.shape[0]), (0, 0),
             (0, 0)) + ((0, 0),) * (data.ndim - 3)
     data = np.pad(data, padding, mode='constant',
             constant_values=0)
+    
     # Tile the individual thumbnails into an image.
     data = data.reshape((n, n) + data.shape[1:]).transpose((0, 2, 1, 3)
             + tuple(range(4, data.ndim + 1)))
