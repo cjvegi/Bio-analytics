@@ -36,7 +36,7 @@ with tf.Session() as sess:
     saver = tf.train.Saver([bio_tf])
 
     sess.run(bio_tf.initializer)
-    saver.save(sess, os.path.join(LOG_DIR, 'bio_tf.ckpt'))
+    saver.save(sess, os.path.join(LOG_DIR, 'images.ckpt'))
 
     config = projector.ProjectorConfig()
     # One can add multiple embeddings.
