@@ -1,13 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jan 24 16:25:24 2018
-
-@author: Khan
-"""
-
-# -*- coding: utf-8 -*-
-
-
 import os,cv2
 import numpy as np
 
@@ -52,5 +42,5 @@ def images_to_sprite(data):
     return data
 
 sprite = images_to_sprite(img_data)
-cv2.imwrite(os.path.join(LOG_DIR, 'sprite_4_classes.png'), sprite)
+cv2.imwrite(os.path.join(LOG_DIR, 'sprite_32classes.png'), sprite)
 
