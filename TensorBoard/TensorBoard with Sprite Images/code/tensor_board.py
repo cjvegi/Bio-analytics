@@ -22,20 +22,14 @@ df_pca = pd.DataFrame(pca.fit_transform(df))
 
 bio = df_pca.values 
 
-bio_tf = tf.Variable(mnist)
-#def save_metadata(file):
-'''
-with open(metadata, 'w') as metadata_file:
-    for row in range(10000):
-        c = np.nonzero(mnist.test.labels[::1])[1:][0][row]
-        metadata_file.write('{}\n'.format(c))
-'''
+## Tensorflow Variable
+images = tf.Variable(bio)
 
 
 with tf.Session() as sess:
-    saver = tf.train.Saver([bio_tf])
+    saver = tf.train.Saver([images])
 
-    sess.run(bio_tf.initializer)
+    sess.run(images.initializer)
     saver.save(sess, os.path.join(LOG_DIR, 'images.ckpt'))
 
     config = projector.ProjectorConfig()
