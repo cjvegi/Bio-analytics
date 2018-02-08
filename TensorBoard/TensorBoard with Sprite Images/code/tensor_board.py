@@ -50,4 +50,4 @@ with tf.Session() as sess:
     projector.visualize_embeddings(tf.summary.FileWriter(LOG_DIR), config) 
 
 
-#  tensorboard --logdir=C:\Users\Khan\Desktop\Files\mnist-tensorboard/log-1 --port=6006
+#  tensorboard --logdir=C:\Users\Name\Desktop\Files\bio-tensorboard/log-1 --port=6006
