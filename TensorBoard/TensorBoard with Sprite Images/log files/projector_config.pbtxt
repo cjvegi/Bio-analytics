@@ -1,0 +1,9 @@
+embeddings {
+  tensor_name: "Variable:0"
+  metadata_path: "C:\\Users\\Khan\\Desktop\\Files/mnist-tensorboard/log-1/df_labels.tsv"
+  sprite {
+    image_path: "C:\\Users\\Khan\\Desktop\\Files/mnist-tensorboard/log-1/sprite_32classes.png"
+    single_image_dim: 32
+    single_image_dim: 32
+  }
+}
