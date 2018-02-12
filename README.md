@@ -5,7 +5,7 @@ Leverage TensorBoard dimensionality reduction visualizations to help evaluate an
 
 ## Pipeline
 
-[Pipeline](img_ten/TensorBoard.png)
+![Pipeline](img_ten/TensorBoard.png)
 
 ## Data: 
 Confidential
