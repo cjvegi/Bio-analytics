@@ -1,3 +1,9 @@
-# Bio-analytics
+# Bio analytics
 
-To share work on the data sets with professor
+## Objective: Leverage TensorBoard dimensionality reduction visualizations to help evaluate and validate Unsupervised learning methods on 3D MRI image data
+
+## Data: Confidential
+
+## Pipeline
+
+[Pipeline](img_ten/TensorBoard.png)
