@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Visualize higher dimensional neuroimaging data</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<style>
+	a {color: red;}
+
+	</style>
+	
+</head>
+<body>
+	
+
+
+	<section id="showcase">
+		<div class="container">	
+		</div>
+	</section>
+		<div class = "bottom-left">
+				<h1>Visualize higher dimensional 3D image data using TensorBoard
+			</h1>	
+			<p>Written by chiranjeevi vegi, <a href ="http://www.socr.umich.edu/" target="_blank"> SOCR </a> </p>
+			</div>
+		</div>
+
+
+
+	<div class="container">
+		<section id="main">
+
+			<!-- Motivation -->
+
+			<h1>Motivation</h1>
+			<blockquote cite="https://www.linkedin.com/feed/update/urn:li:activity:6372150086666895360/">
+				<i>
+			Clustering: the example #1 (and most probably the only one) a machine learning expert will give you if you ask "What are examples of unsupervised learning?".
+			<br><p></p>
+			Clustering is also a closet of shame of machine learning as a scientific domain. Nobody really knows what a good clustering is. There's no algorithmic way to optimally decide on the good initialization of clustering algorithms, the optimal number of clusters, the metric to compare the similarity/dissimilarity of points within one cluster. Only heuristics and advice of kind "try this/try that".
+			<br><p></p>
+			Classification/regression/sequence modeling/reinforcement learning are all living a boom of new discoveries and new problems being solved. Clustering desperately got stick in the 80s..
+			<br><p></p>
+			source: <a href="https://www.linkedin.com/feed/update/urn:li:activity:6372150086666895360/" target="_blank"> Andriy Burkov on Linkedin</a>
+		</i> <p></p>
+		<strong>In this article, we suggest TensorBoard interactive visualization as an additional tool to help visualize higher dimensional data and understand unsupervised models and results </strong>
+		</blockquote>
+
+			<!-- Introduction -->
+
+			<h1>Introduction</h1>
+			<p>With data increasing at an exponential rate, the datasets have million observations and attributes/features. One might argue, more the data the merrier. But this is not the case always. Datasets with high dimensions/features are subjected to what is called as <a href= "https://www.quora.com/What-is-the-curse-of-dimensionality" target="_blank"> curse of dimensionality </a> Medical images generate thousands of features and are subjected to curse of dimensionality. This problem pushed researchers to explore dimensionality reduction procedures such as Principal Component Analysis (PCA), t-distributed stochastic neighbor embedding (t-SNE), Linear discriminant analysis (LDA) etc. In this article, we will concentrate on t-SNE.</p>
+			<p>The math behind some of these dimensionality reduction is elaborately explained in this <a href="https://towardsdatascience.com/reducing-dimensionality-from-dimensionality-reduction-techniques-f658aec24dfe" target="_blank"> article </a> and more intuitively in this <a href="https://www.youtube.com/watch?v=NEaUSP4YerM&t=424s" target="_blank">  video. </a> </p>
+			<center>
+				<h3> t-distributed stochastic neighbor embedding (t-SNE)</h3>
+			</center>
+			<p style="text-align:center;" > <img src='images/t_sne.gif' height = 340px alt= "t_sne"> </p>
+			<p>Now that we established some understanding of visualizing higher dimensional data. Let's understand how one could leverage this to understand unsupervised model performance.</p>
+			<center>
+				<h3>.                                                      ..                                                               .</h3>
+			</center>
+
+			<!-- Pipeline -->
+			<h1>Project Description</h1>
+			<blockquote>
+				Multi-source, heterogeneous and multifaceted data for 11,000 participants were acquired for a large scale study. Imaging, genetics, clinical assessments and demographic information was recorded at multiple times. The data was preprocessed, derived neuroimaging morphometry measures were computed, and a single computable data object was created by harmonizing and aggregating all the available information. The final sample size was reduced to 9,914, as some cases were removed due to preprocessing errors, extreme missingness, or inconsistencies. 
+				<i>
+					<p><strong> The goal of the study was to examine thousands of data elements (3,300), predict specific clinical outcomes, determine the most salient features associated with computable clinical phenotypes, and interpret the joint data holistically, in a lower dimensional space</strong></p>	
+				</i>
+			</blockquote><br>
+			<h1>Pipeline</h1>
+			<p style="text-align:center;" > <img src='images/TensorBoard.png' width = 60% alt= "t_sne"> </p><br>
+			<h2>Feature Extraction</h2>
+			<p>Description: <strong>Get information from Hanbo Sun</strong> </p>
+			<h4> Data after feature extraction</h4>
+			<p> Number of Observations: 9,914</p>
+			<p> Number of features: 3,297</p>
+
+			<h2>Machine Learning</h2>
+			<p>After all the data pre-processing and feature extraction, it's time to find hidden patterns in the data. Since we do not have ground truth labels, unsupervised learning techinques are used. We would not go in depth on these machine learning models in this article. 
+			</p>
+			<p>Before training an unsupervised model, we need to note that data has 3,297 features which can results in poor performance of our model. So the first step employed is dimensionality reduction using PCA to get a minimum number of features which can explain 80% of the variance. As seen in the graph below, approx. 300 features can help explain 80% variance in the data. Hence, our final data that is fed into machine learning model has 9,914 Observations and 300 Feaatures/attributes.</p><br>
+			<p style="text-align:center;" > <img src='images/pca_features.png' alt= "t_sne"> </p><br>
+			<h3>Machine Learning algorithms</h3>
+			<p><strong> Model Performance </strong> To evaluate model performance in absence of information about ground truth labels, very few metrics are available to evaluate the model. These metrics are:
+				<ol>
+					<li><strong> Silhouette Coefficient </strong></li>
+					<p>Interpretation: The silhouette value is a measure of how similar an object is to its own cluster (cohesion) compared to other clusters (separation).The score is bounded between -1 for incorrect clustering and +1 for highly dense clustering. Scores around zero indicate overlapping clusters. The score is higher when clusters are dense and well separated, which relates to a standard concept of a cluster.  </p>
+					<li><strong> Calinski-Harabaz Index </strong></li>
+					<p>Interpretation: The score is higher when clusters are dense and well separated, which relates to a standard concept of a cluster. The score is fast to compute</p> 
+				</ol>
+				<p><strong>Note: </strong> Since the focus of the article is on understanding the results of unsupervised learning using TensorBoard visualizations, we would not do much in terms of hyperparameter tuning of machine learning models abeit K-Means++</p>
+			<ol>
+				</p>
+				<li><strong> K- Means++ </strong> </li>
+				<p>The parameter of interest in this model is choosing optimal 'K' i.e., Number of CLusters. Elbow graph as shown below is the popular method to estimate the value of 'K'</p>
+				<p style="text-align:center;" > <img src='images/k_means_elbow.png' alt= "t_sne"> </p><br>
+				<p>We are looking for a sharp bend in the plot of inertia vs. number of clusters where beyond that point change in inertia is very less and that point of the bend can be considered as optimal cluster number. In this case, we do not see such sharp bend. However, we see that after 3 clusters the variation in inertia is less/decreasing gradually. Thus, we will fit our data to 3 clusters.</p>
+				<strong> Result of K-Means++ model</strong>
+				<p style="text-align:center;" > <img src='images/k_means_label.png' alt= "k_means_label"> </p><br>
+				<p>As seen from the above label distribution plot, 85% of the observations are in clusters 1 and 3 with <strong>Silhouette Coefficient of 0.0907435709364 </strong> . Based on this, it can be infered that model performed poorly and their is overlap between the clusters. This can be seen using t-sne generated in python. Later we will use TensorBoard to generate 3D visualization of t-SNE</p>
+				<p style="text-align:center;" > <img src='images/k_means_tsne.png' alt = "k_means_tsne" height = 400px alt= "t_sne"> </p><br>
+				<p><strong>Note: </strong> All the models below are trained with default parameters</p>
+
+				<li>Affinity Propogation </li>
+				<p><strong>Result: Each data point is a cluster </strong></p>
+				<p style="text-align:center;" > <img src='images/affinitypropogation.png' alt = "affinitypropogation" height = 400px width = 60% alt= "t_sne"> </p><br>
+
+				<li>Spectral Clustering </li>
+				<p><strong>Result: Silhouette Coefficient = -0.010253807701991864  </strong></p>
+				<p style="text-align:center;" > <img src='images/spectralclustering.png' alt="spectralclustering" height = 400px width = 60% alt= "t_sne"> </p><br>
+
+				<li>Agglomerative Clustering </li>
+				<p><strong>Result: Silhouette Coefficient = -0.010253807701991864  </strong></p>
+				<p style="text-align:center;" > <img src='images/AgglomerativeClustering.png' alt="AgglomerativeClustering" height = 400px width = 60% alt= "t_sne"> </p><br>
+
+				<li>Agglomerative Clustering </li>
+				<p><strong>Result: Silhouette Coefficient = 0.074091165994850147  </strong></p>
+				<p style="text-align:center;" > <img src='images/AgglomerativeClustering.png' alt="AgglomerativeClustering" height = 400px width = 60% alt= "t_sne"> </p><br>
+
+				<li>HDBSCAN </li>
+				<p><strong>Result: All data points in one cluster</strong></p>
+				<p style="text-align:center;" > <img src='images/HDBSCAN.png' alt="HDBSCAN" height = 400px width = 60% alt= "t_sne"> </p><br>
+			</ol>
+
+			<!-- Take Aways -->
+
+			<h3>Take Aways</h3>
+			<blockquote>
+				<p>Though we a metric to evaluate different model performance, without ground truth label we cannot ascertain that a particular model is performing well. Thus, one way to solve this is visualization of the underlying clusters formed by each model. Such visualizations can put our doubts at ease and also provide meaningful insights on model performance and lot being limited by Silhouette Coefficient </p><br>
+				
+			</blockquote>
+
+			<!--TensorBoard Introduction-->
+
+			<h1>What is TensorBoard?</h1>
+			<p> The computations you'll use TensorFlow for - like training a massive deep neural network - can be complex and confusing. To make it easier to understand, debug, and optimize TensorFlow programs, we've included a suite of visualization tools called TensorBoard. You can use TensorBoard to visualize your TensorFlow graph, plot quantitative metrics about the execution of your graph, and show additional data like images that pass through it.</p>
+			<p>Out of vast majoirty of features TensorBoard offers we will use Embedding Projector. TensorBoard includes the Embedding Projector, a tool that lets you interactively visualize embeddings. This tool can read embeddings from your model and render them in two or three dimensions. </p>
+				<strong>The Embedding Projector has three panels:</strong> 
+				<ol>
+					<li>Data panel on the top left, where you can choose the run, the embedding variable and data columns to color and label points by.</li>
+					<li>Projections panel on the bottom left, where you can choose the type of projection.</li>
+					<li>Inspector panel on the right side, where you can search for particular points and see a list of nearest neighbors.</li>
+				</ol>
+				<strong>Projections</strong> 
+				<p> The Embedding Projector provides three ways to reduce the dimensionality of a data set.</p>
+				<ol>
+					<li><strong> t-SNE: </strong> A nonlinear nondeterministic algorithm (T-distributed stochastic neighbor embedding) that tries to preserve local neighborhoods in the data, often at the expense of distorting global structure. You can choose whether to compute two- or three-dimensional projections.</li>
+					<li><strong> PCA: </strong> A linear deterministic algorithm (principal component analysis) that tries to capture as much of the data variability in as few dimensions as possible. PCA tends to highlight large-scale structure in the data, but can distort local neighborhoods. The Embedding Projector computes the top 10 principal components, from which you can choose two or three to view.
+					</li>
+					<li><strong>Custom:</strong>A linear projection onto horizontal and vertical axes that you specify using labels in the data. You define the horizontal axis, for instance, by giving text patterns for "Left" and "Right". The Embedding Projector finds all points whose label matches the "Left" pattern and computes the centroid of that set; similarly for "Right". The line passing through these two centroids defines the horizontal axis. The vertical axis is likewise computed from the centroids for points matching the "Up" and "Down" text patterns </li>
+				</ol>
+				<h3>Source: <a href="https://www.tensorflow.org/programmers_guide/embedding" target="_blank"> TensorBoard Visualizing Embedding</a> </h3>
+				<center><p> How a visualization on TensorBoard looks like </p></center>
+				<p style="text-align:center;" > <img src='images/tensordemo.gif' alt="TensorBoard Demo" height = 400px width = 50% alt= "t_sne"> </p>
+			
+
+
+
+				<p>Let’s get started generating t-SNE visualization on tensorboard with our own data. Steps involved</p>
+				<p><strong>Required Libraries: </strong>TensorFlow, Pandas, Numpy, sklearn( PCA, StandardScaler). You can also create an environment using the .yml file found  <a href="https://github.com/cjvegi/Bio-analytics/blob/master/TensorBoard/ENV_file.yml">here</a> here. To run the .yml, run the following command <strong>“conda env create -f filename.yml” </strong> in terminal(mac) or conda prompt(windows)</p>
+				<p>Before jumping into code to visualize higher dimensional data</p>
+				<ol>
+					<li>Apply standard scaler and Create dummy variable for categorical data</li>
+					<li>For better results with t-SNE, apply dimensionality reduction to reduce your data set to 50 features or PCA components that explain at least 80% of the variance in your data</li>
+					<li>If your data is not labeled, predict clusters/labels using unsupervised learning methods. In fact, this visualization method helps immensely in understanding our clustering results.</li>
+				</ol>
+
+				<h1>Pythonic Way</h1>
+				<p>Running the code below generates necessary files such as embeddings for data, metadata, checkpoints and TensorFlow variables that TensorBoard reads during startup</p>
+
+
+
+
+				<h3>CODE</h3>
+<pre id="PRE_1"><span id="SPAN_2"></span>## Importing required Libraries
+import os
+import tensorflow as tf
+from tensorflow.contrib.tensorboard.plugins import projector
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+
+## Get working directory
+PATH = os.getcwd()
+
+## Path to save the embedding and checkpoints generated
+LOG_DIR = PATH + '/project-tensorboard/log-1/'
+
+## Load data
+df = pd.read_csv("scaled_data.csv",index_col =0)
+
+## Load the metadata file. Metadata consists your labels. This is optional. Metadata helps us visualize(color) different clusters that form t-SNE
+metadata = os.path.join(LOG_DIR, 'df_labels.tsv')
+
+# Generating PCA and 
+pca = PCA(n_components=50,
+         random_state = 123,
+         svd_solver = 'auto'
+         )
+df_pca = pd.DataFrame(pca.fit_transform(df))
+df_pca = df_pca.values
+
+## TensorFlow Variable from data
+tf_data = tf.Variable(df_pca)
+
+## Running TensorFlow Session
+with tf.Session() as sess:
+    saver = tf.train.Saver([tf_data])
+    sess.run(tf_data.initializer)
+    saver.save(sess, os.path.join(LOG_DIR, 'tf_data.ckpt'))
+    config = projector.ProjectorConfig()
+    
+# One can add multiple embeddings.
+    embedding = config.embeddings.add()
+    embedding.tensor_name = tf_data.name
+    # Link this tensor to its metadata(Labels) file
+    embedding.metadata_path = metadata
+    # Saves a config file that TensorBoard will read during startup.
+    projector.visualize_embeddings(tf.summary.FileWriter(LOG_DIR), config)
+
+</pre>
+<p>Now, open terminal and run the following command</p>
+
+<pre id="PRE_2"><span id="SPAN_3"></span>tensorboard --logdir= "where the log files are stored"(without quotes) --port=6006
+</pre>
+<br>
+<p></p>
+<h1>
+	<blockquote>
+		Result
+	</blockquote>
+</h1>
+
+
+
+			
+			<!-- tensorboard video -->
+			<center> 
+				<video controls>
+					<source src="videos/index.mp4" type="video/mp4">
+					Your browser does not support HTML5 video.
+				</video>
+
+			</center>
+
+			<p> Let's summarize few of our observations from the plot. In the above visualization, different colors from metadata(label) that are predicted using unsupervised model in this case K-Means++. We see four clusters being formed. However, our unsupervised learning model was trained with 3 clusters. We also see blue and orange cluster seem to share observations while the rest are share few observations. This shows that a good parameter tuning and careful study of observations we can identify/predict clusters that are separted nicely from one another. </p> 
+			<p>Another important feature is visualizing data points and their associated images. With minimal effort a subject matter expert can carefully study clusters and deduct insights on model performance. Thus, this helps us really on visual aid along side popular unsupervised performance metrics to improve our model. </p>
+			<p></p>
+
+				
+		</section>
+
+	<br>
+	<br>
+	</div> <!--container -->
+
+	<h1>
+	<blockquote>
+		Now, Its your turn to experiment
+	</blockquote>
+</h1>
+
+	<div class="TensorBoard">
+		<center>
+			<iframe height = 800px width = 100%
+			src="http://CJ-Vegi.local:6006">
+			</iframe>
+			
+		</center>
+		
+	</div>
+
+
+	<footer id="main-footer">
+		<p>Copyright &copy; 2018 <a href ="http://www.socr.umich.edu/" target="_blank"> Statistics Online Computational Resource (SOCR) </a> </p>
+	</footer>
+</body>
+</html>
