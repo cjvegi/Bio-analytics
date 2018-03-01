@@ -7,6 +7,47 @@ body{
 	margin:0;
 }
 
+/*Navigator start*/
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    width: 100%;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+
+}
+
+ul.topnav li a:hover:not(.active) {
+    background-color: grey;
+    cursor: pointer;
+    
+}
+
+ul.topnav li a.active {
+    background-color: green;
+    padding-right: 30px;
+}
+
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px){
+    ul.topnav li.right, 
+    ul.topnav li {float: none;}
+}
+/*Navigator End*/
+
 .container{
 	width:80%;
 	margin:auto;
@@ -128,6 +169,11 @@ mark {
     white-space: pre;
     font: normal normal 400 normal 13px / 15.6px Consolas, "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
 }/*#SPAN_2*/
+
+iframe {
+  display:block;
+  margin:auto;
+}
 
 
 
